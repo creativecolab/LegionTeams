@@ -56,6 +56,7 @@ export default function (Template) {
   });
 
   Template['queue'].onCreated(function() {
+    const experimentId = FlowRouter.getParam('experimentId');
     this.getWorkerId = () => Session.get('currentWorkerId');
 
     // User doesn't have worker ID yet, return to home
@@ -131,7 +132,7 @@ export default function (Template) {
           }
         }
         if (fields.status == 'launch') {
-          window.location =  Experiment.find().fetch()[0].taskURL;
+          window.location =  Experiment.findOne({ _id: experimentId }).taskURL;
           handle.stop();
         }
 
